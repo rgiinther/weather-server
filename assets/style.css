@@ -1,0 +1,16 @@
+* {
+    font-family: 'Open Sans', sans-serif;
+}
+.navbar header {
+    display: flex;
+    align-items: center;
+}
+
+.fiveday {
+    display: flex;
+    justify-content: flex-end;
+}
+.city {
+    display: flex;
+    justify-content: flex-end;
+}
