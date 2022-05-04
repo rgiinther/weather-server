@@ -19,7 +19,7 @@ $("#searchBtn").click(function(){
     localStorage.setItem("city", JSON.stringify(inputCity))
 })
 var outputCity = JSON.parse(localStorage.getItem("city"))
-document.getElementById("searchInput").value = output9am;
+document.getElementById("searchInput").value = outputCity;
 
      // lists up to 8 locations
     for (i = 0; i < searchHistory.length; i++) {
