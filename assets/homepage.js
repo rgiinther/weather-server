@@ -1,7 +1,7 @@
 //search variables- Left column
-var searchInput = document.getElementById("searchInput")
-var searchBtn = document.getElementById("searchBtn")
-var previousSearch = document.getElementById("historyBtn")
+//var searchInput = document.getElementById("searchInput")
+//var searchBtn = document.getElementById("searchBtn")
+//var previousSearch = document.getElementById("historyBtn")
 
 var weatherUrlroot = "https://api.openweathermap.org"
 var apiKey = "34a0f8eac9f57de331cd322101c91945"
