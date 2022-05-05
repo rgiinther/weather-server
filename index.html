@@ -14,47 +14,43 @@
     <!--header-->
     <div class="container-fluid">
       <nav class="navbar bg-dark">
-        <h1 class="header-style">Weather Dashboard</h1>
+          <h1 class="header-style">Weather Dashboard</h1>
       </nav>
-    
-    <!--left section-->
-      <div>
-        <div class="row">
+      <!-- search column, form and button -->
+      <div class="row">
           <div class="col-4 bg-light">
-            <div class="mt-2">Search for a City:</div>
-              <input type="text" class="city form-control" id="searchInput">
-              <div class="input-group-append">
-                <button class="searchBtn btn btn-primary" tyoe="button" id="searchCity">Search</button>
-                <button class="historyBtn btn btn-secondary" type="button" id="clear">Clear History</button>
+              <div class="mt-2">Search for a City:</div>
+              <div class="input-group mb-3">
+                  <input type="text" id="city" class="form-control">
+                  <div class="input-group-append">
+                      <button class="btn btn-primary" type="button" id="searchCity">Search</button><!-- search button-->
+                      <button class="btn btn-secondary" type="button" id="clear">Clear History</button><!-- clear button-->
+                  </div>
               </div>
-            </div>
-          <!--left column-->
-          <div class="list-group"></div>
-        </div>
-        <div class="col-8">
-          <div class="city row p-2">
-            <div class="card">
-                <!--main card-->
-                <div class="card-body"></div>
-            </div>
+              <!-- left column / list -->
+              <div class="list-group"></div>
           </div>
-        </div>
-        <div>
           <div class="col-8">
-            <div class="fiveday row">
-              <h4>Five-Day Forecast:</h4>
-            </div>
-          <!--Weeekly forcast-->
-            <div id="weeklyForcast" class="row"></div>
-           </div>
-        </div>
+              <div class="row p-2">
+                  <div class="card">
+                      <!-- main card -->
+                      <div class="card-body"></div>
+                  </div>
+              </div>
+                  <div class="row">
+                      <h4>5-Day Forecast:</h4>
+                  </div>
+              <!-- five day -->
+              <div id="weeklyForecast" class="row"></div>
+          </div>
       </div>
+      
+  </div>
       <!--Javascript links-->
       <script src="https://kit.fontawesome.com/3c309b0cab.js" crossorigin="anonymous"></script>
       <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
-      <!--<script src="assets/script.js"></script>-->
       <script src="assets/homepage.js"></script>
     </body>
 </html>   

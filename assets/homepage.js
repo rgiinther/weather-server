@@ -37,7 +37,7 @@ var mainCard = $(".card-body");
 getItems();
 // main card
 function getData() { // my api code
-    var queryURL = `${weatherUrlroot}/data/2.5/weather?q= + city + &appid=${apiKey}`// starts call for current conditions
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=34a0f8eac9f57de331cd322101c91945" // starts call for current conditions
     mainCard.empty();
     $("#weeklyForecast").empty();
     // requests
@@ -69,7 +69,7 @@ function getData() { // my api code
         var lon = response.coord.lon;
         // separate request for UV index, requires lat/long
         $.ajax({
-            url: "https://api.openweathermap.org/data/2.5/uvi?appid=49fb27317373bb54f7d9243387af6df3&lat=" + lat + "&lon=" + lon, // my api code
+            url: "https://api.openweathermap.org/data/2.5/uvi?appid=34a0f8eac9f57de331cd322101c91945&lat=" + lat + "&lon=" + lon, // my api code
             method: "GET"
         // displays UV in main card and is color coded based off of intensity
         }).then(function (response) {
@@ -84,7 +84,74 @@ function getData() { // my api code
             if (response.value > 5) {
                 $("span").attr("class", "btn btn-outline-danger");
             };
-            var city;
-var mainCard = $(".card-body");
-// prompt getItems
-getItems();
+        })
+        // another call for the 5-day (forecast)
+        $.ajax({
+            url: "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=34a0f8eac9f57de331cd322101c91945", // my api code
+            method: "GET"
+        // displays 5 separate columns from the forecast response for 5 days
+        }).then(function (response) {
+            for (i = 0; i < 5; i++) { // start for loop
+                // creates the columns
+                var newCard = $("<div>").attr("class", "col fiveDay bg-primary text-white rounded-lg p-2");
+                $("#weeklyForecast").append(newCard);
+                // uses moment for the date
+                var myDate = new Date(response.list[i * 8].dt * 1000);
+                // displays date
+                newCard.append($("<h4>").html(myDate.toLocaleDateString()));
+                // brings back the icon url suffix
+                var iconCode = response.list[i * 8].weather[0].icon;
+                // builds the icon URL
+                var iconURL = "http://openweathermap.org/img/w/" + iconCode + ".png";
+                // displays the icon
+                newCard.append($("<img>").attr("src", iconURL));
+                // converts K and removes decimals using Math.round
+                var temp = Math.round((response.list[i * 8].main.temp - 273.15) * 1.80 + 32);
+                // displays temp
+                newCard.append($("<p>").html("Temp: " + temp + " &#8457")); //appends fahrenheit degrees using short key code
+                // creates a var for humidity from the response
+                var humidity = response.list[i * 8].main.humidity;
+                // displays humidity
+                newCard.append($("<p>").html("Humidity: " + humidity));
+            }
+        })
+    })
+};
+// searches and adds to history(event)
+$("#searchCity").click(function() {
+    city = $("#city").val().trim();
+    getData();
+    var checkArray = searchHistory.includes(city);
+    if (checkArray == true) {
+        return
+    }
+    else {
+        searchHistory.push(city);
+        localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
+        var cityListButton = $("<a>").attr({
+            // list-group-item-action keeps the search history buttons consistent
+            class: "list-group-item list-group-item-action",
+            href: "#"
+        });
+        cityListButton.text(city);
+        $(".list-group").append(cityListButton);
+    };
+});
+// listens for action on the history buttons(event)
+$(".list-group-item").click(function() {
+    city = $(this).text();
+    getData();
+});
+// capitalize city name
+$("#searchCity").keypress(function () {  
+    var _val = $("#searchCity").val();  
+    var _txt = _val.charAt(0).toUpperCase() + _val.slice(1);  
+    $("#searchCity").val(_txt);
+});
+
+// clear all the local storage(not working after a page refresh)
+$('#clear').click( function() {
+    window.localStorage.clear();
+    location.reload();
+    return false;
+    });
